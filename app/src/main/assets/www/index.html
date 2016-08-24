@@ -1,0 +1,471 @@
+<!doctype html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Way</title>
+            <link rel="stylesheet" href="css/index.css" />
+        	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+        	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+            <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+            <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3&sensor=false&language=en&libraries=places"></script>
+        
+            <style>
+            .error{
+                font-size: 0.8em;
+                border: 1px solid;
+                margin: 10px 0px;
+                padding:15px 10px 15px 8px;
+                text-align:center;
+                color: #D8000C;
+                background-color: #FFBABA;
+            }
+            </style>
+            <script type="text/javascript" charset="utf-8">
+            
+            $( document ).on( "pageinit", "#addNewPage", function() {
+              	getnewlocation();	
+              });
+            
+
+            $(document).on("pageinit", "#map_page", function() {
+  
+            	var input1 = document.getElementById('from');
+                var autocomplete = new google.maps.places.Autocomplete(input1);
+                
+                var input2 = document.getElementById('to');
+                var autocomplete = new google.maps.places.Autocomplete(input2);
+               
+            });
+            
+            $(document).on('click', '#submit', function() {
+         	   var url = "map.html?from=" + encodeURIComponent($("#from").val()) + 
+         			   				"&to=" + encodeURIComponent($("#to").val()) +
+         			   				"&mode=" + encodeURIComponent($("#mode").val());
+                window.location.href = url;
+
+
+             });
+            
+           
+            function getnewlocation()
+            {
+            	
+            	// get geolocation Long and lati  	               	
+            if (navigator.geolocation)
+              {
+              navigator.geolocation.getCurrentPosition(showPosition);
+              
+              }
+            else{
+            	alert("Geolocation is not supported by this browser.");
+            	}
+            }
+            
+          //convert long and lati to address       
+            function showPosition(position)
+              {
+          	  
+          	  var lat = position.coords.latitude;
+          	  var lon = position.coords.longitude;
+          	      	  
+          	  //var latlon=position.coords.latitude+","+position.coords.longitude;
+          	  var latLng =  new google.maps.LatLng(lat,lon);
+          	  geocoder = new google.maps.Geocoder();
+          	  //alert("test"+latLng);
+          	  geocoder.geocode( { 'latLng': latLng}, function(results, status) {
+          	     
+          		  
+          	          //  var geocodedAddress = results[0].formatted_address;
+          	            var geocodedAddress = results[1].formatted_address;
+          	            
+          	            alert("Address: "+geocodedAddress);
+          	            
+          	         // set address in html input field   
+          	         document.getElementById('place').value=geocodedAddress;
+          	       document.getElementById('from').value=geocodedAddress;
+          	       // set value of lat and long in html input field
+                 //	  document.getElementById('latitude').value=lat;
+                 //	  document.getElementById('longitude').value=lon;
+                 //from lat value
+                 //	 document.getElementById('flat').value=lat;
+                //	  document.getElementById('flong').value=lon;
+          	  });
+          	 
+          }
+            
+            
+            $(document).ready(function(){
+ 
+                document.addEventListener("deviceready", onDeviceReady, false);
+                 
+                var db = window.openDatabase("Database", "1.0", "MyContactsDB", 200000);
+ 
+                function onDeviceReady(){
+                    //Populate the databse
+                    db.transaction(populateDB, errorCB, successCB);
+                    //Override the back button functionality
+                    document.addEventListener('backbutton', onBack, false);
+                }
+                 
+                function onBack(){
+                    //If the current page is index page then exit other wise navigate to index page
+                    if($.mobile.activePage.is('#addNewPage')){
+                        navigator.app.exitApp();
+                    }
+                    else{
+                        db.transaction(queryDB, errorCB);
+                    }
+                }              
+ 
+                function populateDB(tx){
+                    //Create the table
+                   //	tx.executeSql('DROP TABLE IF EXISTS MyContacts');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS MyContacts (id INTEGER PRIMARY KEY AUTOINCREMENT, \
+                            name TEXT NOT NULL, place TEXT, longitude REAL, \
+                            latitude REAL)\
+                             ');
+                    tx.executeSql('SELECT id, name, place FROM MyContacts ORDER BY name', [], querySuccess, errorCB);
+                }
+ 
+                function successCB(){
+                    db.transaction(queryDB, errorCB);
+                }
+ 
+                function queryDB(tx){
+                    tx.executeSql('SELECT id, name, place FROM MyContacts ORDER BY name', [], querySuccess, errorCB);
+                }
+ 
+                function querySuccess(tx, results){
+                    $.mobile.showPageLoadingMsg(true);
+                    var len = results.rows.length;
+                    $("#userList").html('');
+                    for (var i=0; i<len; i++){
+                        var row= results.rows.item(i);
+                        var htmlData = '<li id="'+row["id"]+'"><a href="#"><h2>'+row["name"]+'</h2><p class="ui-li-aside">'+row["place"]+'</p></a></li>';
+                        $("#userList").append(htmlData).listview('refresh');
+                    }
+                    //$.mobile.changePage($("#index"), { transition : "slide"});
+                   // $.mobile.hidePageLoadingMsg();
+                }
+ 
+                function errorCB(err){
+ 
+                }      
+             
+                $("#addNewPage .error").html('').hide();
+ 
+                $(".addNew").bind ("click", function (event){
+                   $("#addNewPage .error").html('').hide();
+                    $.mobile.changePage ($("#addNewPage"), { transition : "slide", reverse : true });
+                    
+                //    getnewlocation();
+                });
+ 					
+				$(".edit").bind ("click", function (event){
+                    
+                    $.mobile.changePage ($("#index"), { transition : "slide", reverse : true });
+                   
+                });
+				$(".search").bind ("click", function (event){
+                    
+                    $.mobile.changePage ($("#map_page"), { transition : "slide", reverse : true });
+                   
+                });
+				
+				$(document).on('click', '#mylist', function(event) {
+					 $.mobile.changePage ($("#index"), { transition : "slide", reverse : true });
+		            	
+		               
+		        });
+				
+				$(".backhistory").bind ("click", function (event){
+                    
+                    $.mobile.changePage ($("#addNewPage"), { transition : "slide", reverse : true });
+                   
+                });
+				
+				
+               
+                
+				 $(document).on('click', '#save', function(event){
+                    var name = $.trim($("#name").val()).replace(/[^A-Za-z0-9 ]/g, '');
+                    var place = $.trim($("#place").val()).replace(/[^A-Za-z0-9 @]/g, '');
+                    var longitude = $.trim($("#longitude").val());
+                    var latitude = $.trim($("#latitude").val());
+                    
+                 //   console.log(name+' '+place+' '+longitude+' '+latitude+');
+ 
+                    if (name == ''){
+                        $("#addNewPage .error").html('Please enter name.').show();
+                    }
+                    else{
+                        resetForm();
+ 
+                        var id = $("#id").val();
+                        $("#id").val('');
+                        if (id == ''){  //Save
+                            db.transaction(function (tx){ tx.executeSql("INSERT INTO MyContacts (name, place, longitude, latitude) VALUES  (?, ?, ?, ?)",[name, place, longitude, latitude],
+                            queryDB, errorCB); });
+                            $.mobile.changePage ($("#index"), { transition : "slide", reverse : true });
+                        	alert("My Location Added")
+                        }
+                        else{   //Update
+                            db.transaction(function (tx){ tx.executeSql("UPDATE MyContacts SET name=?, place=?, longitude=?, latitude=? WHERE id=? ",[name, place, longitude, latitude, id],
+                            queryDB, errorCB); }); 
+                        }
+                        db.transaction(queryDB, errorCB);
+                    }
+                });
+                 
+                $(".refresh").bind("click", function (event){
+                    db.transaction(queryDB, errorCB);
+                });
+                 
+                $(".back").bind("click", function (event){
+                    resetForm();
+                    db.transaction(queryDB, errorCB);
+                });
+                 
+                function resetForm(){
+                    $("#addNewPage .error").html('').hide();
+                    $("#addNewPage #name").val('');
+                    $("#addNewPage #place").val('');
+                    $("#addNewPage #longitude").val('');
+                    $("#addNewPage #latitude").val('');
+                    
+                    $("#addNewPage #addNewPageHeader").html('');   
+                }
+                 
+                $("#index [data-role='content'] ul").on('tap taphold', 'li', function (event){
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    var liId = this.id;
+                    if (event.type === 'taphold'){
+                        navigator.notification.vibrate(30);
+                        var $popup = $('#actionList-popup');
+                        $("#actionList").html('');
+                        $("#actionList").append('<li id="edit&'+liId+'">Edit</li>').listview('refresh');
+                        $("#actionList").append('<li id="delete&'+liId+'">Delete</li>').listview('refresh');
+                        $popup.popup();
+                        $popup.popup('open');
+                        $("#tapHoldCheck").val('true');
+                    }
+                    else if (event.type === 'tap'){
+                        if ($("#tapHoldCheck").val() == ''){ //If the value of the text box is blank then only tap will work
+                            db.transaction(function (tx){
+                                tx.executeSql("SELECT name, place, longitude, latitude FROM MyContacts WHERE id=?;", [liId], function (tx, results){
+                                    var row = results.rows.item(0);
+                                    $.mobile.showPageLoadingMsg(true);
+                                    $.mobile.changePage("#map_page");
+                                   
+                                    var placetest =row['place'];
+                                    document.getElementById('to').value=placetest;
+                                    
+                                    // to long and lat
+                                    var lat =row['latitude'];
+                                    var lon =row['longitude'];
+                                    document.getElementById('tlat').value=lat;
+                                    document.getElementById('tlong').value=lon;
+                                    
+                                    
+                                    
+                                    $("#datalongitude").html(row['longitude']);
+                                    
+                                    $("#datalatitude").html(row['latitude']);
+                                    
+                                  
+                                    $.mobile.hidePageLoadingMsg();
+                                });
+                             });
+                        }
+                    }
+                });
+ 
+                //Change the hidden field value when the popup is closed
+                $('#actionList-popup').bind({
+                    popupafterclose: function(event, ui){
+                        $("#tapHoldCheck").val('');
+                    }
+                });
+ 
+                $("#index [data-role='popup'] ul").on('click', 'li', function (event){
+                    var action_liId = this.id.split('&');
+                    var action = action_liId[0];
+                    var id = action_liId[1];
+                    if (action == 'edit'){
+                        db.transaction(function (tx){
+                            tx.executeSql("SELECT name, place, longitude, latitude FROM MyContacts WHERE id=?;", [id], function (tx, results){
+                                var row = results.rows.item(0);
+                                $("#name").val(row['name']);
+                                $("#place").val(row['place']);
+                                $("#longitude").val(row['longitude']);
+                                $("#latitude").val(row['latitude']);
+                               
+                                $("#id").val(id);
+                                $("#addNewPageHeader").html('Edit');
+                                $.mobile.changePage ($("#addNewPage"), { transition : "slide", reverse : true });
+                            });
+                         });
+                    }
+                    if (action == 'delete'){
+                        navigator.notification.confirm(
+                            'Are you sure?',
+                            function(buttonIndex){onConfirm(buttonIndex, id);},
+                            'Delete Contact',
+                            'Ok, Cancel'
+                        );
+                    }
+                });
+                 
+                function onConfirm(buttonIndex, id){
+                    if (buttonIndex === 1){ //Delete
+                        db.transaction(function (tx){ tx.executeSql("DELETE FROM MyContacts WHERE id=?", [id], queryDB, errorCB); });
+                    }
+                    if (buttonIndex === 2){
+                        $.mobile.changePage($("#index"), { transition : "slide"});
+                    }
+                }
+ 
+            });
+            
+           
+            
+            </script>
+           
+        </head>
+    <body>
+    <!-- Form Page Start -->
+        <div data-role="page" id="addNewPage">
+            <div data-role="header" data-position="fixed">
+                 <a href="#menu"  data-rel="popup" data-transition="slide" data-icon="grid" data-position-to="window" data-role="button" >Menu</a>
+                <h1 >Way</h1>
+                <a href="#" id ="addNew" onclick="getnewlocation()" data-role="button" data-icon="add" data-theme="a" title="Save">New Add</a>
+            </div>
+            <div data-role="content">
+                <div class='error'></div>
+                <div data-role="fieldcontain">
+                    <label for="name">Tag Name:</label>
+                    <input type="text" name="name" id="name" required="true" maxlength="100" value="" "/>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="place">Place:</label>
+                    <input type="text" name="place" id="place" maxlength="100" value="" readonly="readonly" />
+                </div>
+                <div data-role="fieldcontain" style="display: none;">
+                    <label for="longitude">longitude:</label>
+                    <input type="text" name="longitude" id="longitude" maxlength="15" value="" readonly="readonly" />
+                </div>
+                <div data-role="fieldcontain" style="display: none;">
+                    <label for="latitude">Latitude:</label>
+                    <input type="text" name="latitude" id="latitude" maxlength="15" value="" readonly="readonly"/>
+                </div>
+                
+                <input type="hidden" name="id" id="id" value="" />
+                <div>
+                <a href="#" id="save" data-role="button" data-icon="check" data-theme="a" title="Save">Save</a>
+               
+                </div>
+            </div>
+            <div data-role="panel" id="menu" data-corners="false" data-theme="a"  data-display="overlay" data-tolerance="0,0">
+
+    		<button data-theme="a" data-icon="search" class="search" data-mini="true">search</button>
+    		<button data-theme="a" data-icon="gear" class="edit" data-mini="true">Edit Loation</button>
+    		<button data-theme="a" data-icon="back" data-mini="true" data-rel="close">Back</button>
+                
+                
+                </div>
+	 
+        </div>
+        <!-- Form Page End -->
+ 
+ 
+        <!-- Index Page Start -->
+        <div data-role="page" id="index">
+            <div data-role="header" data-position="fixed">
+                <a href="#" class="refresh" data-role="button" data-icon="refresh" data-theme="a" title="Refresh">Refresh</a>
+                <h1>Way</h1>
+                <a href="#" class="addNew" data-role="button" data-icon="add" data-theme="a" title="Add New">Add</a>
+            </div>
+            <div data-role="content">
+                <ul data-role="listview" data-filter="true" data-filter-placeholder="Search..." id="userList">  </ul>
+            </div>
+            <div data-role="popup" id="actionList-popup" data-overlay-theme="a">
+                <ul data-role="listview" id="actionList" style="border: 1px solid blue; width:15em">  </ul>
+            </div>
+            <input type="hidden" id="tapHoldCheck" value="" />
+        </div>
+        <!-- Index Page End -->
+ 
+        <!-- Data Display Page Start -->
+        <div data-role="page" id="displayDataPage">
+            <div data-role="header" data-position="fixed">
+                <a href="#" class="back" data-role="button" data-icon="arrow-l" data-theme="a" title="Back">Back</a>
+                <h1> Way</h1>
+                <a href="#" class="addNew" data-role="button" data-icon="add" data-theme="a" title="Add New">Add</a>
+            </div>
+            <div data-role="content">
+                <ul data-role="listview" id="dataList">
+                    <li>Name : <span id="dataName"></span></li>
+                    <li>Place : <span id="dataplace"></span></li>
+                    <li>longitude : <span id="datalongitude"></span></li>
+
+                    <li>Latitude : <span id="datalatitude"></span></li>
+
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- Data Display Page End -->
+        
+        <div data-role="page" id="map_page">
+            <div data-role="header" data-position="fixed"> 
+            <a href="#menu"  data-icon="grid" data-rel="popup" data-transition="slide" data-position-to="window" data-role="button" >Menu</a>
+                <h1>Way</h1>
+            <a href="#" class="backhistory" data-role="button" data-icon="arrow-l" data-theme="a" title="Back">Back</a>
+            </div>
+          		 
+            <div data-role="content">
+             <div class="ui-bar-c  ui-shadow" style="padding:1em;">     
+                <div data-role="fieldcontain" class="ui-hide-label" >          
+                        <input class="serachinput" type="text" id="from" placeholder="Source" data-role="none"/>
+                        <a data-role="none" onclick="getnewlocation()" data-theme="b"><button data-role="none" class="searchbutton">My </button></a>
+          		
+          		</div>
+          		
+                <div data-role="fieldcontain" class="ui-hide-label">
+						<input class="serachinput"type="text" id="to" placeholder="Destination" data-role="none"/>
+						 <a  id="mylist" data-role="none" data-icon="check"  ><button data-role="none" class="searchbutton">List</button></a>
+               
+               	</div>
+             
+ 
+             <div data-role="fieldcontain" class="selectContainerStyled">
+          <select name="select-choice-0" id="mode"  data-role="none" size="1">
+                            <option value="DRIVING">Driving</option>
+                            <option value="WALKING">Walking</option>
+                            <option value="BICYCLING">Bicycling</option>
+                            <option value="TRANSIT">Transit</option>
+                        </select>
+                   <a   data-role="none" data-icon="check"  ><button data-role="none"  class="newselectbutton">Select Travel Mode</button></a>           
+              </div>
+               <a data-icon="search" data-role="none" id="submit" href="#"  data-theme="b"><button data-role="none" class="directionbutton">Get directions</button></a>    
+     
+              
+          	</div>
+       </div>
+       <div data-role="panel" id="menu" data-corners="false" data-theme="a"  data-display="overlay" data-tolerance="0,0">
+
+    <button data-theme="a" data-icon="home" class="addNew" data-mini="true">Home</button>
+    <button data-theme="a" data-icon="gear" class="edit" data-mini="true">Edit Loation</button>
+    <button data-theme="a" data-icon="back" data-mini="true" data-rel="close">Back</button>
+                
+                
+                </div>
+	 
+</div>
+ 
+        
+    </body>
+</html>

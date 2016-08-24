@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "F:\\igp\\AndroidWorkspace\\Way\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\icon.png",
+        "source": "F:\\igp\\AndroidWorkspace\\Way\\app\\src\\main\\res\\drawable-hdpi\\icon.png"
+    },
+    {
+        "merged": "F:\\igp\\AndroidWorkspace\\Way\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_launcher.png",
+        "source": "F:\\igp\\AndroidWorkspace\\Way\\app\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+    }
+]

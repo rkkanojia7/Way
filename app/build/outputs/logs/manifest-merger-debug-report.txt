@@ -1,0 +1,77 @@
+-- Merging decision tree log ---
+manifest
+ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:3:1-27:12
+	package
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:5:7-35
+		INJECTED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml
+		INJECTED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml
+	android:versionName
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:6:7-32
+		INJECTED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml
+		INJECTED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml
+	android:windowSoftInputMode
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:4:5-44
+	android:versionCode
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:6:33-56
+		INJECTED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml
+		INJECTED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:3:11-69
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:9:5-81
+	android:name
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:9:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:10:5-79
+	android:name
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:10:22-76
+uses-permission#android.permission.ACCESS_LOCATION_EXTRA_COMMANDS
+ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:11:5-89
+	android:name
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:11:22-86
+uses-permission#android.permission.INTERNET
+ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:12:5-67
+	android:name
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:12:22-64
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:13:5-81
+	android:name
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:13:22-78
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:14:5-79
+	android:name
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:14:22-76
+application
+ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:16:5-26:19
+	android:label
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:16:55-87
+	android:icon
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:16:18-54
+activity#in.eyehunt.www.way.MainActivity
+ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:17:9-24:20
+	android:label
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:17:66-98
+	android:configChanges
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:19:17-83
+	android:theme
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:18:17-70
+	android:name
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:17:19-65
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:20:13-23:29
+action#android.intent.action.MAIN
+ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:21:17-69
+	android:name
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:21:25-66
+category#android.intent.category.LAUNCHER
+ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:22:17-77
+	android:name
+		ADDED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml:22:27-74
+uses-sdk
+INJECTED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+	android:targetSdkVersion
+		INJECTED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml
+		INJECTED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml
+		INJECTED from F:\igp\AndroidWorkspace\Way\app\src\main\AndroidManifest.xml

@@ -1,0 +1,194 @@
+.addinput {
+width:70%;
+
+        height: 28px;
+        padding: 10px 5px;
+        float: right;    
+        font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
+        border: 0;
+        background: #fff;
+
+border: 1px solid !important;
+-moz-border-radius: 0px !important;
+-khtml-border-radius: 0px !important;
+-webkit-border-radius: 0px !important;
+border-radius: 0px !important;
+padding:5px;
+margin-right: 5px;
+
+;}
+
+.serachinput{
+	width:80%;
+
+        height: 28px;
+        padding: 10px 5px;
+        float: left;    
+        font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
+        border: 0;
+        background: #fff;
+
+border: 1px solid !important;
+-moz-border-radius: 0px !important;
+-khtml-border-radius: 0px !important;
+-webkit-border-radius: 0px !important;
+border-radius: 0px !important;
+padding:5px;
+	
+}
+
+#overheard textarea {
+width:80%;
+height: 100px !important;
+border: 0px !important;
+-moz-border-radius: 0px !important;
+-khtml-border-radius: 0px !important;
+-webkit-border-radius: 0px !important;
+border-radius: 0px !important;}
+
+.serachinput:focus {
+        outline: 0;
+        background: #fff;
+        -moz-box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+        -webkit-box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+        box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+    }
+
+
+
+.searchbutton {
+		overflow: visible;
+        position: relative;
+        width :15%;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        height: 40px;
+       
+        font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
+        color: #fff;
+        text-transform: uppercase;
+        background: #d83c3c;
+        -moz-border-radius: 0 3px 3px 0;
+        -webkit-border-radius: 0 3px 3px 0;
+        border-radius: 0 3px 3px 0;      
+        text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
+    }   
+      
+    .searchbutton:hover{		
+        background: #e54040;
+    }	
+      
+    .searchbutton:active,
+    .searchbutton:focus{   
+        background: #c42f2f;    
+    }
+    
+    .searchbutton:before {
+        content: '';
+        position: absolute;
+        border-width: 8px 8px 8px 0;
+        border-style: solid solid solid none;
+        border-color: transparent #d83c3c transparent;
+        top: 12px;
+        left: -6px;
+    }
+    
+    .searchbutton:hover:before{
+        border-right-color: #e54040;
+    }
+    
+    .searchbutton:focus:before{
+        border-right-color: #c42f2f;
+    }    
+    
+   .searchbutton::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+    }
+    
+.selectContainerStyled    {
+	
+
+    }
+
+.selectContainerStyled select {
+  float: left;
+ width:30%;
+ font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
+  position: relative;
+  z-index: 2;
+  height: 40px;
+  display: block;
+  line-height: 14px;
+ padding:5px;
+  margin: 0;
+  -moz-appearance: window;
+  -moz-padding-end: 5px;
+
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid !important;
+}
+
+.newselectbutton{
+	overflow: visible;
+        position: relative;
+        width:70%;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        height: 40px;
+       
+        font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
+        color: #fff;
+        text-transform: uppercase;
+        background: #d83c3c;
+        -moz-border-radius: 0 3px 3px 0;
+        -webkit-border-radius: 0 3px 3px 0;
+        border-radius: 0 3px 3px 0;      
+        text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
+	
+}
+
+.directionbutton{
+	margin-top:10px;
+	overflow: visible;
+        position: relative;
+        width :100%;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        height: 40px;
+       
+        font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
+        color: #fff;
+        text-transform: uppercase;
+        background: #000;
+        -moz-border-radius: 3px 3px 3px 3px; 
+        -webkit-border-radius: 3px 3px 3px 3px; 
+        border-radius: 3px 3px 3px 3px;      
+        text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
+	
+}    
+
+#popupPanel-popup {
+    right: 0 !important;
+    left: auto !important;
+}
+#menu {
+    width: 200px;
+    border: 1px solid #000;
+    border-right: none;
+    background: rgba(0,0,0,.5);
+    margin: -1px 0;
+}
+#menu .ui-btn {
+    margin: 2em 5px;
+}
+.userlist{
+	background: #000;
+}
+
+
+
